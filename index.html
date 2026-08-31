@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Market Reconnection Platform | When Crisis Breaks the Food System</title>
+  <!-- Bootstrap 5 CSS + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --green-950: #0d1f14;
+      --green-900: #1a3c2a;
+      --green-800: #1f4d34;
+      --green-700: #2d5a3f;
+      --green-600: #3d7a4f;
+      --green-500: #4a8c5c;
+      --green-400: #6ba87a;
+      --green-300: #8ec99a;
+      --green-200: #b8e0c0;
+      --green-100: #daf2e0;
+      --green-50: #edf8f0;
+      --gold-600: #8b6914;
+      --gold-500: #c8963e;
+      --gold-400: #d4a853;
+      --gold-300: #e0c278;
+      --gold-200: #edd9a0;
+      --gold-100: #f7efd0;
+      --gold-50: #fcf8ee;
+      --earth: #8b5e3c;
+      --earth-light: #c4a47a;
+      --danger: #c0392b;
+      --danger-light: #fdecea;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-700: #334155;
+      --slate-900: #0f172a;
+      --white: #ffffff;
+      --off-white: #fdfaf6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(165deg, #f5f2eb 0%, #eae3d5 40%, #f2efe6 100%);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      padding: 1.5rem 0.8rem;
+      min-height: 100vh;
+      color: var(--slate-900);
+    }
+
+    .deck-wrapper {
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+
+    .slide {
+      background: var(--white);
+      border-radius: 1.4rem;
+      padding: 2.2rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 35px rgba(40, 30, 15, 0.09);
+      border: 1px solid #e5dcc8;
+      page-break-after: always;
+      position: relative;
+      overflow: hidden;
+    }
+    .slide:last-child {
+      page-break-after: auto;
+    }
+    .slide::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--green-700), var(--green-400), var(--gold-400));
+    }
+
+    .slide-dark {
+      background: linear-gradient(150deg, #0f1f14 0%, #1a3020 40%, #1a3c2a 100%);
+      color: white;
+    }
+    .slide-dark .slide-title {
+      color: white;
+    }
+    .slide-dark .slide-subtitle {
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .slide-dark::after {
+      background: linear-gradient(90deg, var(--gold-400), var(--green-400), var(--gold-400));
+    }
+
+    .slide-crisis {
+      background: linear-gradient(160deg, #fef9f4 0%, #fdf5ee 40%, #fefaf6 100%);
+      border-color: #e8d5c0;
+    }
+    .slide-crisis::after {
+      background: linear-gradient(90deg, #c0392b, #e67e22, var(--gold-400));
+    }
+
+    .slide-hope {
+      background: linear-gradient(160deg, #f6faf3 0%, #edf7ea 40%, #f4faf2 100%);
+      border-color: #c8e0c0;
+    }
+    .slide-hope::after {
+      background: linear-gradient(90deg, var(--green-600), var(--green-400), var(--gold-300));
+    }
+
+    .slide-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--green-600);
+      margin-bottom: 0.3rem;
+    }
+    .slide-dark .slide-label {
+      color: var(--gold-300);
+    }
+    .slide-crisis .slide-label {
+      color: #c0392b;
+    }
+
+    .slide-title {
+      font-weight: 800;
+      color: var(--green-900);
+      font-size: 1.85rem;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.6px;
+      line-height: 1.2;
+    }
+    .slide-subtitle {
+      color: var(--slate-700);
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+      font-weight: 400;
+    }
+
+    .big-number {
+      font-size: 3.2rem;
+      font-weight: 900;
+      color: var(--green-700);
+      line-height: 1;
+    }
+    .big-number.crisis {
+      color: #c0392b;
+    }
+    .big-number-label {
+      font-size: 0.8rem;
+      color: var(--slate-700);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+    }
+
+    .card-stat {
+      background: var(--green-50);
+      border-radius: 1rem;
+      padding: 1.2rem;
+      text-align: center;
+      border: 1px solid var(--green-200);
+      height: 100%;
+    }
+    .card-stat.crisis {
+      background: var(--danger-light);
+      border-color: #f0c8c8;
+    }
+    .card-stat.gold {
+      background: var(--gold-50);
+      border-color: var(--gold-200);
+    }
+    .card-stat.hope {
+      background: #f2faf4;
+      border-color: #b8e0c0;
+    }
+
+    .card-role {
+      background: var(--white);
+      border-radius: 1rem;
+      padding: 1rem;
+      border: 1px solid #e8e0d0;
+      text-align: center;
+      height: 100%;
+      transition: all 0.2s;
+    }
+    .card-role:hover {
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .icon-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .icon-circle.green {
+      background: var(--green-100);
+      color: var(--green-700);
+    }
+    .icon-circle.gold {
+      background: var(--gold-100);
+      color: var(--gold-600);
+    }
+    .icon-circle.danger {
+      background: var(--danger-light);
+      color: #c0392b;
+    }
+    .icon-circle.earth {
+      background: #f0e8dd;
+      color: var(--earth);
+    }
+    .icon-circle.white-bg {
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+    }
+
+    .timeline-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      padding: 0.5rem 0;
+    }
+    .timeline-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #c0392b;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .timeline-dot.amber {
+      background: #e67e22;
+    }
+    .timeline-dot.gold {
+      background: var(--gold-400);
+    }
+    .timeline-dot.green {
+      background: var(--green-600);
+    }
+    .timeline-dot.gray {
+      background: #999;
+    }
+
+    .crisis-item {
+      background: #fef5f5;
+      border: 1px solid #f0c8c8;
+      border-radius: 0.6rem;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #8b2020;
+      text-align: center;
+    }
+    .solution-item {
+      background: #f3f9f0;
+      border: 1px solid #c0d8b0;
+      border-radius: 0.6rem;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #1e4a1e;
+      text-align: center;
+    }
+
+    .flow-step {
+      background: var(--green-50);
+      border: 1.5px solid var(--green-300);
+      border-radius: 0.6rem;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--green-900);
+      text-align: center;
+    }
+    .flow-arrow {
+      color: var(--green-500);
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .story-card {
+      background: #fdf9f2;
+      border-radius: 1rem;
+      padding: 1.4rem;
+      border-left: 5px solid var(--gold-400);
+      font-style: italic;
+    }
+
+    .divider-dashed {
+      border-top: 2px dashed #d5c9b0;
+      margin: 1.2rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .slide {
+        padding: 1.4rem 0.9rem;
+      }
+      .slide-title {
+        font-size: 1.4rem;
+      }
+      .big-number {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-wrapper" id="pitchDeck">
+
+    <!-- ==================== SLIDE 1: TITLE ==================== -->
+    <div class="slide slide-dark text-center" style="display:flex;flex-direction:column;justify-content:center;min-height:500px;">
+      <span class="tag-white mb-2" style="display:inline-block;padding:0.25rem 0.8rem;border-radius:20px;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;background:rgba(255,255,255,0.18);color:white;border:1px solid rgba(255,255,255,0.3);">Case Study Pitch Deck</span>
+      <h1 style="font-weight:900;color:white;font-size:2.5rem;letter-spacing:-1px;line-height:1.15;">
+        WHEN CRISIS BREAKS<br>THE FOOD SYSTEM
+      </h1>
+      <div style="width:70px;height:2px;background:var(--gold-400);margin:1.2rem auto;"></div>
+      <h2 style="color:rgba(255,255,255,0.9);font-weight:600;font-size:1.3rem;">Market Reconnection Platform</h2>
+      <p style="color:rgba(255,255,255,0.75);font-size:1rem;">Rebuilding Agricultural Supply Chains During Crisis</p>
+      <p style="color:rgba(255,255,255,0.55);font-size:0.85rem;margin-top:1rem;font-style:italic;">
+        A digital coordination platform that helps farmers, buyers, logistics providers,<br>and aggregation hubs continue moving food during disruptions.
+      </p>
+      <div class="d-flex justify-content-center gap-2 mt-3 flex-wrap">
+        <span class="badge bg-light text-dark px-3 py-2">🌾 Agriculture</span>
+        <span class="badge bg-light text-dark px-3 py-2">🔗 Supply Chain</span>
+        <span class="badge bg-light text-dark px-3 py-2">🛡️ Resilience</span>
+        <span class="badge bg-light text-dark px-3 py-2">🤝 Coordination</span>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 2: THE CRISIS ==================== -->
+    <div class="slide slide-crisis">
+      <span class="slide-label">Slide 2 — The Crisis</span>
+      <h2 class="slide-title"><i class="bi bi-exclamation-triangle-fill me-2" style="color:#c0392b;"></i>The Crisis</h2>
+      <p class="slide-subtitle">A story that repeats across communities — regardless of the trigger.</p>
+      <div class="row g-3">
+        <div class="col-lg-7">
+          <div class="story-card">
+            <p style="font-size:1.05rem;line-height:1.7;">
+              <i class="bi bi-quote fs-3 text-warning opacity-50"></i><br>
+              Imagine a farming community. The harvest is ready. Then crisis strikes.<br><br>
+              Whether caused by <strong>insecurity, flooding, conflict, road closures, or climate-related disasters</strong> — the result is often the same.<br><br>
+              <span style="color:#c0392b;font-weight:700;">Markets stop functioning. Food stops moving. Families lose income.</span>
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="card-stat crisis h-100 d-flex flex-column justify-content-center">
+            <i class="bi bi-cloud-lightning-rain-fill fs-1 d-block mb-2" style="color:#c0392b;"></i>
+            <h6 class="fw-bold" style="color:#c0392b;">Common Crisis Triggers</h6>
+            <div class="small text-start mt-2">
+              <div class="border-bottom py-1">⚠️ Insecurity & conflict</div>
+              <div class="border-bottom py-1">🌊 Flooding & extreme weather</div>
+              <div class="border-bottom py-1">🛣️ Road closures & infrastructure damage</div>
+              <div class="py-1">🌡️ Climate-related disasters</div>
+            </div>
+            <p class="fw-bold mt-2 mb-0 small" style="color:#c0392b;">One trigger → Same collapse → Same suffering</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 3: WHAT HAPPENS NEXT (TIMELINE) ==================== -->
+    <div class="slide slide-crisis">
+      <span class="slide-label">Slide 3 — The Timeline</span>
+      <h2 class="slide-title"><i class="bi bi-clock-history me-2" style="color:#c0392b;"></i>What Happens Next?</h2>
+      <p class="slide-subtitle">The predictable cascade when the food supply chain breaks.</p>
+      <div style="max-width:550px;margin:0 auto;">
+        <div class="timeline-step">
+          <div class="timeline-dot"></div>
+          <div><strong>Day 1:</strong> Farmers harvest crops. Everything seems normal.</div>
+        </div>
+        <div style="width:2px;height:20px;background:#e0c0c0;margin-left:6px;"></div>
+        <div class="timeline-step">
+          <div class="timeline-dot amber"></div>
+          <div><strong>Day 3:</strong> Roads become unsafe or inaccessible. First warning signs.</div>
+        </div>
+        <div style="width:2px;height:20px;background:#e0c0c0;margin-left:6px;"></div>
+        <div class="timeline-step">
+          <div class="timeline-dot amber"></div>
+          <div><strong>Day 5:</strong> Buyers stop visiting. Farmers begin to worry.</div>
+        </div>
+        <div style="width:2px;height:20px;background:#e0c0c0;margin-left:6px;"></div>
+        <div class="timeline-step">
+          <div class="timeline-dot" style="background:#c0392b;"></div>
+          <div><strong>Day 7:</strong> Produce begins to spoil. <span style="color:#c0392b;font-weight:700;">Food waste starts.</span></div>
+        </div>
+        <div style="width:2px;height:20px;background:#e0c0c0;margin-left:6px;"></div>
+        <div class="timeline-step">
+          <div class="timeline-dot" style="background:#8b0000;"></div>
+          <div><strong>Day 14:</strong> Families lose income. <span style="color:#8b0000;font-weight:700;">Livelihoods collapse.</span></div>
+        </div>
+        <div style="width:2px;height:20px;background:#e0c0c0;margin-left:6px;"></div>
+        <div class="timeline-step">
+          <div class="timeline-dot gray"></div>
+          <div><strong>Week 3:</strong> Local food shortages begin — <span style="color:#666;">despite nearby production.</span></div>
+        </div>
+      </div>
+      <div class="text-center mt-3 p-2" style="background:var(--danger-light);border-radius:0.6rem;">
+        <span class="fw-bold" style="color:#c0392b;">Food exists. Demand exists. The connection is broken.</span>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 4: MEET AMINA ==================== -->
+    <div class="slide">
+      <span class="slide-label">Slide 4 — The Human Story</span>
+      <h2 class="slide-title"><i class="bi bi-person-fill me-2"></i>Meet Amina</h2>
+      <div class="row g-3">
+        <div class="col-lg-7">
+          <div class="story-card">
+            <p style="font-size:1rem;line-height:1.7;">
+              Amina grows tomatoes. Normally she sells at the local market.<br><br>
+              This season she harvested <strong>4 tonnes</strong>.<br><br>
+              Because of insecurity, <strong>buyers never arrived.</strong><br><br>
+              Within days, <span style="color:#c0392b;font-weight:700;">her tomatoes spoiled.</span><br><br>
+              She lost months of work. Her family's income for the season — gone.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="card-stat crisis h-100 d-flex flex-column justify-content-center">
+            <i class="bi bi-person-x-fill fs-1 d-block mb-2" style="color:#c0392b;"></i>
+            <div class="big-number crisis">4</div>
+            <div class="big-number-label">Tonnes Harvested</div>
+            <div class="big-number crisis mt-2">0</div>
+            <div class="big-number-label">Tonnes Sold</div>
+            <hr>
+            <p class="fw-bold mb-0 small" style="color:#c0392b;">
+              Multiply Amina's story by hundreds of farmers.<br>This is the real cost of the coordination gap.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 5: THE REAL PROBLEM ==================== -->
+    <div class="slide slide-dark text-center" style="display:flex;flex-direction:column;justify-content:center;min-height:380px;">
+      <span class="tag-white mb-2" style="display:inline-block;padding:0.25rem 0.8rem;border-radius:20px;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;background:rgba(255,255,255,0.18);color:white;border:1px solid rgba(255,255,255,0.3);">Slide 5 — Root Cause</span>
+      <h2 class="slide-title" style="font-size:2rem;">The Real Problem</h2>
+      <div class="row g-3 mt-3" style="max-width:750px;margin-left:auto;margin-right:auto;">
+        <div class="col-md-4">
+          <div style="background:rgba(255,255,255,0.1);border-radius:1rem;padding:1.2rem;">
+            <i class="bi bi-check-circle-fill fs-1 d-block mb-2" style="color:var(--green-300);"></i>
+            <h6 class="fw-bold text-white">Farmers kept farming</h6>
+            <small style="color:rgba(255,255,255,0.7);">Production didn't stop. The harvest was real.</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-stat gold text-center" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);">
+            <i class="bi bi-x-circle-fill fs-1 d-block mb-2" style="color:var(--gold-300);"></i>
+            <h6 class="fw-bold" style="color:var(--gold-300);">The Connection Broke</h6>
+            <small style="color:rgba(255,255,255,0.7);">The link between farm and market was severed.</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div style="background:rgba(255,255,255,0.1);border-radius:1rem;padding:1.2rem;">
+            <i class="bi bi-check-circle-fill fs-1 d-block mb-2" style="color:var(--green-300);"></i>
+            <h6 class="fw-bold text-white">Buyers still needed food</h6>
+            <small style="color:rgba(255,255,255,0.7);">Demand didn't disappear. Markets still wanted produce.</small>
+          </div>
+        </div>
+      </div>
+      <div style="background:rgba(212,168,83,0.2);border-radius:1rem;padding:1rem;margin-top:1.5rem;max-width:600px;margin-left:auto;margin-right:auto;">
+        <p class="fw-bold mb-0" style="color:var(--gold-300);font-size:1.1rem;">
+          We call this <span style="color:white;">the Coordination Gap</span> — and it's what we're solving.
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 6: OUR SOLUTION ==================== -->
+    <div class="slide slide-hope">
+      <span class="slide-label">Slide 6 — Our Solution</span>
+      <h2 class="slide-title"><i class="bi bi-lightbulb-fill me-2 text-warning"></i>Our Solution</h2>
+      <p class="slide-subtitle">The Market Reconnection Platform becomes the coordination center — connecting everyone through one system.</p>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="card-role">
+            <div class="icon-circle green mx-auto mb-2"><i class="bi bi-person-lines-fill"></i></div>
+            <h6 class="fw-bold">👨‍🌾 Farmers</h6>
+            <small>Register available produce — get matched with buyers even when traditional markets are inaccessible.</small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card-role">
+            <div class="icon-circle green mx-auto mb-2"><i class="bi bi-building-fill"></i></div>
+            <h6 class="fw-bold">🏢 Aggregation Hubs</h6>
+            <small>Receive and consolidate produce from surrounding farmers — safe collection points.</small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card-role">
+            <div class="icon-circle gold mx-auto mb-2"><i class="bi bi-cart-check-fill"></i></div>
+            <h6 class="fw-bold">🛒 Buyers</h6>
+            <small>Search verified supply — place one order instead of making dozens of calls.</small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card-role">
+            <div class="icon-circle earth mx-auto mb-2"><i class="bi bi-truck-front-fill"></i></div>
+            <h6 class="fw-bold">🚛 Logistics Providers</h6>
+            <small>Receive delivery assignments — optimized routes, no more empty return trips.</small>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        <span class="badge bg-success px-3 py-2">🛡️ Administrators monitor the entire operation in real-time</span>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 7: HOW IT WORKS ==================== -->
+    <div class="slide">
+      <span class="slide-label">Slide 7 — How It Works</span>
+      <h2 class="slide-title"><i class="bi bi-diagram-3-fill me-2"></i>How It Works</h2>
+      <p class="slide-subtitle">A simple, coordinated workflow — from harvest to payment.</p>
+      <div class="d-flex flex-wrap justify-content-center align-items-center gap-1 mb-3">
+        <span class="flow-step" style="background:var(--green-600);color:white;">🌾 Farmer Harvests</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">📋 Produce Registered</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">🏢 Nearest Hub Assigned</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">🛒 Buyer Places Order</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">🤝 Platform Matches Supply</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">🚛 Truck Assigned</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">📍 Goods Delivered</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step" style="background:var(--gold-200);border-color:var(--gold-400);color:#5c3d0e;">💰 Farmer Paid</span>
+      </div>
+      <div class="text-center p-3" style="background:var(--green-50);border-radius:0.8rem;">
+        <span class="fw-semibold" style="color:var(--green-800);">
+          <i class="bi bi-check-circle-fill me-1"></i> Everyone sees the same status. Everyone knows what's happening. Coordination replaces chaos.
+        </span>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 8: EVERY ROLE HAS A DASHBOARD ==================== -->
+    <div class="slide">
+      <span class="slide-label">Slide 8 — Role Dashboards</span>
+      <h2 class="slide-title"><i class="bi bi-speedometer2 me-2"></i>Every Role Has a Dashboard</h2>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="card-role">
+            <i class="bi bi-person-fill fs-1 text-success d-block mb-2"></i>
+            <h6 class="fw-bold">👨‍🌾 Farmer</h6>
+            <small>Register farm • List produce • Track sales • Receive payments</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-role">
+            <i class="bi bi-building-fill fs-1 text-warning d-block mb-2"></i>
+            <h6 class="fw-bold">🏢 Hub Manager</h6>
+            <small>Receive produce • Manage inventory • Quality inspection • Dispatch orders</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-role">
+            <i class="bi bi-truck-front-fill fs-1 d-block mb-2" style="color:var(--earth);"></i>
+            <h6 class="fw-bold">🚚 Logistics</h6>
+            <small>Receive delivery jobs • Track routes • Confirm delivery • Upload proof</small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card-role">
+            <i class="bi bi-cart-check-fill fs-1 text-primary d-block mb-2"></i>
+            <h6 class="fw-bold">🛒 Buyer</h6>
+            <small>Search produce • Place orders • Track shipments • Rate suppliers</small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card-role">
+            <i class="bi bi-shield-check fs-1 text-danger d-block mb-2"></i>
+            <h6 class="fw-bold">🛡️ Admin</h6>
+            <small>Monitor all operations • Approve users • View analytics • Respond to incidents</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 9: DURING A CRISIS — BEFORE vs AFTER ==================== -->
+    <div class="slide slide-hope">
+      <span class="slide-label">Slide 9 — Crisis Response</span>
+      <h2 class="slide-title"><i class="bi bi-shield-fill-check me-2"></i>During a Crisis: Before vs. After</h2>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <h6 class="fw-bold text-center text-danger mb-3">
+            <i class="bi bi-x-octagon-fill me-1"></i> Without the Platform — Chaos
+          </h6>
+          <div class="d-flex flex-column gap-2">
+            <div class="crisis-item">❌ Farmers searching desperately for buyers</div>
+            <div class="crisis-item">❌ Buyers calling dozens of suppliers blindly</div>
+            <div class="crisis-item">❌ Trucks returning empty — wasted fuel, wasted time</div>
+            <div class="crisis-item">❌ Produce spoiling in fields and warehouses</div>
+            <div class="crisis-item">❌ No one knows where food is available</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h6 class="fw-bold text-center text-success mb-3">
+            <i class="bi bi-check-circle-fill me-1"></i> With the Platform — Coordination
+          </h6>
+          <div class="d-flex flex-column gap-2">
+            <div class="solution-item">✅ Complete visibility of all available produce</div>
+            <div class="solution-item">✅ Coordinated collection at safe aggregation hubs</div>
+            <div class="solution-item">✅ Efficient logistics with optimized routing</div>
+            <div class="solution-item">✅ Reliable market access despite disruptions</div>
+            <div class="solution-item">✅ Real-time data for decision-making</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 10: THE PILOT ==================== -->
+    <div class="slide">
+      <span class="slide-label">Slide 10 — The Pilot</span>
+      <h2 class="slide-title"><i class="bi bi-rocket-takeoff-fill me-2"></i>The Pilot</h2>
+      <p class="slide-subtitle">Proving the coordination model with a focused, measurable first deployment.</p>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="card-stat text-center">
+            <div class="big-number">100</div>
+            <div class="big-number-label">Farmers</div>
+            <small class="text-muted">Registered with complete profiles and GPS farm mapping</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-stat gold text-center">
+            <div class="big-number" style="color:var(--gold-600);">2</div>
+            <div class="big-number-label">Aggregation Hubs</div>
+            <small class="text-muted">Safe collection points with quality inspection</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-stat text-center">
+            <div class="big-number">10</div>
+            <div class="big-number-label">Verified Buyers</div>
+            <small class="text-muted">Ready to purchase through the platform</small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card-stat gold text-center">
+            <div class="big-number" style="color:var(--gold-600);">3</div>
+            <div class="big-number-label">Logistics Providers</div>
+            <small class="text-muted">With registered vehicles and drivers</small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card-stat hope text-center">
+            <div class="big-number">1</div>
+            <div class="big-number-label">Local Administrator</div>
+            <small class="text-muted">Monitoring operations and responding to incidents</small>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-3 p-2" style="background:var(--green-50);border-radius:0.8rem;">
+        <span class="fw-bold" style="color:var(--green-800);">
+          🎯 Goal: Complete the first successful supply cycle during a period of disruption.
+        </span>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 11: MEASURING SUCCESS ==================== -->
+    <div class="slide">
+      <span class="slide-label">Slide 11 — Success Metrics</span>
+      <h2 class="slide-title"><i class="bi bi-graph-up-arrow me-2"></i>Measuring Success</h2>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="card-stat text-center">
+            <i class="bi bi-people-fill fs-1 text-success d-block mb-2"></i>
+            <h6 class="fw-bold">Farmers Connected</h6>
+            <small>Number of farmers successfully linked to buyers through the platform</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-stat gold text-center">
+            <i class="bi bi-box-seam fs-1 text-warning d-block mb-2"></i>
+            <h6 class="fw-bold">Produce Sold</h6>
+            <small>Tons of produce moved from farm to buyer through coordinated transactions</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-stat text-center">
+            <i class="bi bi-trash-fill fs-1 text-danger d-block mb-2"></i>
+            <h6 class="fw-bold">Food Waste Reduced</h6>
+            <small>Percentage reduction in post-harvest spoilage compared to baseline</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-stat gold text-center">
+            <i class="bi bi-star-fill fs-1 text-warning d-block mb-2"></i>
+            <h6 class="fw-bold">Buyer Satisfaction</h6>
+            <small>Repeat purchase rate and satisfaction scores from verified buyers</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-stat hope text-center">
+            <i class="bi bi-check-circle-fill fs-1 text-success d-block mb-2"></i>
+            <h6 class="fw-bold">Delivery Success Rate</h6>
+            <small>Percentage of orders delivered complete and on time</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-stat text-center">
+            <i class="bi bi-cash-stack fs-1 text-success d-block mb-2"></i>
+            <h6 class="fw-bold">Farmer Income Restored</h6>
+            <small>Average income recovery compared to crisis-affected baseline</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 12: LONG-TERM VISION ==================== -->
+    <div class="slide slide-dark text-center" style="display:flex;flex-direction:column;justify-content:center;min-height:440px;">
+      <span class="tag-white mb-2" style="display:inline-block;padding:0.25rem 0.8rem;border-radius:20px;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;background:rgba(255,255,255,0.18);color:white;border:1px solid rgba(255,255,255,0.3);">Slide 12 — Vision</span>
+      <h2 class="slide-title" style="font-size:2rem;">Long-Term Vision</h2>
+      <div class="row g-3 mt-3" style="max-width:800px;margin-left:auto;margin-right:auto;">
+        <div class="col-md-4">
+          <div style="background:rgba(255,255,255,0.1);border-radius:1rem;padding:1.3rem;">
+            <i class="bi bi-building-fill fs-1 d-block mb-2" style="color:var(--green-300);"></i>
+            <h6 class="fw-bold text-white">Today</h6>
+            <small style="color:rgba(255,255,255,0.75);">Building a platform to coordinate agricultural supply chains</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div style="background:rgba(255,255,255,0.1);border-radius:1rem;padding:1.3rem;">
+            <i class="bi bi-globe-americas fs-1 d-block mb-2" style="color:var(--gold-300);"></i>
+            <h6 class="fw-bold text-white">Tomorrow</h6>
+            <small style="color:rgba(255,255,255,0.75);">Building resilient food systems that withstand crises</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div style="background:rgba(255,255,255,0.1);border-radius:1rem;padding:1.3rem;">
+            <i class="bi bi-heart-fill fs-1 d-block mb-2" style="color:#e07070;"></i>
+            <h6 class="fw-bold text-white">The Goal</h6>
+            <small style="color:rgba(255,255,255,0.75);">Communities that continue producing, trading, and earning — even during crisis</small>
+          </div>
+        </div>
+      </div>
+      <div style="background:rgba(212,168,83,0.2);border-radius:1rem;padding:1rem;margin-top:1.5rem;max-width:650px;margin-left:auto;margin-right:auto;">
+        <p class="fw-bold mb-0" style="color:white;font-size:1rem;">
+          When crisis breaks the food system,<br>coordination restores it.
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== SLIDE 13: THANK YOU / CLOSING ==================== -->
+    <div class="slide text-center" style="display:flex;flex-direction:column;justify-content:center;min-height:400px;">
+      <i class="bi bi-heart-fill fs-1 text-success d-block mb-3"></i>
+      <h2 class="slide-title">Thank You</h2>
+      <p style="font-size:1.1rem;color:var(--slate-700);max-width:550px;margin:0 auto;">
+        We're ready to build the coordination layer that keeps food moving — even when everything else stops.
+      </p>
+      <div style="width:60px;height:2px;background:var(--gold-400);margin:1.2rem auto;"></div>
+      <p class="fw-semibold" style="color:var(--green-800);">
+        <i class="bi bi-envelope me-1"></i> [Contact Information]<br>
+        <i class="bi bi-link-45deg me-1"></i> Market Reconnection Platform
+      </p>
+      <p class="small text-muted mt-2">
+        "Food is available. Markets are available. The connection is broken. We fix the connection."
+      </p>
+    </div>
+
+  </div><!-- /deck-wrapper -->
+
+</body>
+</html>
